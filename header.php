@@ -127,6 +127,7 @@ include_once 'session.php';
                     <ul class="list-unstyled">
                         <li><a href="registration.php" class="text-white">Registracija</a></li>
                         <li><a href="login.php" class="text-white">Prijava</a></li>
+                        <li><a href="logout.php" class="text-white">Odjava</a></li>
                         <li><a href="cities.php" class="text-white">Kraji</a></li>
                         <li><a href="categories.php" class="text-white">Kategorije</a></li>
                     </ul>

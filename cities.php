@@ -1,4 +1,7 @@
 <?php
+include_once 'session.php';
+isAdmin();
+
 include_once 'header.php';
 ?>
     <a class="btn btn-primary" href="city_add.php" role="button">Dodaj kraj</a>
