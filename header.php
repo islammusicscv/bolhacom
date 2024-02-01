@@ -1,4 +1,6 @@
-
+<?php
+include_once 'session.php';
+?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head><script src="/docs/5.3/assets/js/color-modes.js"></script>
@@ -8,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Album example · Bootstrap v5.3</title>
+    <title>Bolha.com</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 
@@ -126,6 +128,7 @@
                         <li><a href="registration.php" class="text-white">Registracija</a></li>
                         <li><a href="login.php" class="text-white">Prijava</a></li>
                         <li><a href="cities.php" class="text-white">Kraji</a></li>
+                        <li><a href="categories.php" class="text-white">Kategorije</a></li>
                     </ul>
                 </div>
             </div>
