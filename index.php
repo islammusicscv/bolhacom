@@ -24,8 +24,12 @@
                     echo '<p class="card-text"><strong>'.$row['title'].'</strong><br />'.$row['description'].'</p>';
                     echo '<div class="d-flex justify-content-between align-items-center">';
                         echo '<div class="btn-group">';
-                            echo '<button type="button" class="btn btn-sm btn-outline-secondary">View</button>';
-                            echo '<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>';
+                            echo '<a href="item.php?id='.$row['id'].'" class="btn btn-sm btn-outline-secondary">Poglej</a>';
+                            //preveri ali je trenutno prijavljeni uporabnik, lastnik oglasa
+                            if ($_SESSION['user_id'] == $row['user_id']) {
+                                echo '<a href="item_edit.php?id='.$row['id'].'" class="btn btn-sm btn-outline-secondary">Uredi</a>';
+                                echo '<a href="item_delete.php?id='.$row['id'].'" onclick="return confirm(\'Prepričan?\');" class="btn btn-sm btn-outline-secondary">Izbriši</a>';
+                            }
                         echo '</div>';
                         echo '<small class="text-body-secondary">'.$row['category'].'</small>';
                     echo '</div>';
