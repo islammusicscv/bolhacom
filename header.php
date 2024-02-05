@@ -125,11 +125,22 @@ include_once 'session.php';
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4>Meni</h4>
                     <ul class="list-unstyled">
-                        <li><a href="registration.php" class="text-white">Registracija</a></li>
-                        <li><a href="login.php" class="text-white">Prijava</a></li>
-                        <li><a href="logout.php" class="text-white">Odjava</a></li>
-                        <li><a href="cities.php" class="text-white">Kraji</a></li>
-                        <li><a href="categories.php" class="text-white">Kategorije</a></li>
+                        <?php
+                        //je prijavljen
+                        if (isset($_SESSION['user_id'])) {
+                            echo '<li><a href="logout.php" class="text-white">Odjava</a></li>';
+                        }
+                        //ni prijavljen
+                        if (!isset($_SESSION['user_id'])) {
+                            echo '<li><a href="login.php" class="text-white">Prijava</a></li>';
+                            echo '<li><a href="registration.php" class="text-white">Registracija</a></li>';
+                        }
+                        //je admin
+                        if (isset($_SESSION['admin']) && $_SESSION['admin']==1) {
+                            echo '<li><a href="cities.php" class="text-white">Kraji</a></li>';
+                            echo '<li><a href="categories.php" class="text-white">Kategorije</a></li>';
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
