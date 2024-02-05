@@ -47,7 +47,7 @@ $result = $stmt->fetch();
             <label for="floatingInput3">Vnesi ceno</label>
         </div>
         <div class="form-floating">
-            <input type="date" id="floatingInput4" class="form-control" value="<?php echo $result['date_end']; ?>" name="date_end" placeholder="Vnesi datum zaključka" required="required" /><br />
+            <input type="date" id="floatingInput4" class="form-control" value="<?php echo date("Y-m-d",strtotime($result['date_end'])); ?>" name="date_end" placeholder="Vnesi datum zaključka" required="required" /><br />
             <label for="floatingInput4">Vnesi datum zaključka</label>
         </div>
 
