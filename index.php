@@ -19,7 +19,16 @@
         while ($row = $stmt->fetch()) {
             echo '<div class="col">';
             echo '<div class="card shadow-sm">';
-                echo '<img src="https://placehold.co/600x400/EEE/31343C" alt="Manjkajoča slika"/>';
+                $query = "SELECT * FROM pictures WHERE item_id=? ORDER BY rand() LIMIT 1";
+                $stmt2 = $pdo->prepare($query);
+                $stmt2->execute([$row['id']]);
+                $picture = $stmt2->fetch();
+                if ($picture) {
+                    echo '<img src="'.$picture['url'].'" alt="'.$picture['description'].'"/>';
+                }
+                else {
+                    echo '<img src="https://placehold.co/600x400/EEE/31343C" alt="Manjkajoča slika"/>';
+                }
                 echo '<div class="card-body">';
                     echo '<p class="card-text"><strong>'.$row['title'].'</strong><br />'.$row['description'].'</p>';
                     echo '<div class="d-flex justify-content-between align-items-center">';

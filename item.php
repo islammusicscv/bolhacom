@@ -15,8 +15,15 @@ include_once 'header.php';
 <div class="naslov"><strong><?php echo $result['title'];?></strong> (<?php echo $result['category'];?>)</div>
 <h3><?php echo $result['price'];?> €</h3>
 <div class="slike">
-    <img src="https://placehold.co/600x400/EEE/31343C" alt="opis slike" />
-    <img src="https://placehold.co/600x400/EEE/31343C" alt="opis slike" />
+    <?php
+    $query = "SELECT * FROM pictures WHERE item_id=?";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$id]);
+
+    while ($row = $stmt->fetch()) {
+        echo '<img src="'.$row['url'].'" alt="'.$row['description'].'" class="img-thumbnail" />';
+    }
+    ?>
 </div>
 <div class="opis"><?php echo $result['description'];?></div>
 <?php
@@ -36,7 +43,7 @@ include_once 'header.php';
 <hr />
 <h2>Komentarji</h2>
 <form action="comment_insert.php" method="post">
-    <input type="hidden" name="id" value="2" />
+    <input type="hidden" name="id" value="<?php echo $id;?>" />
     <div class="form-floating">
         <textarea name="content" class="form-control" placeholder="Komentar" id="floatingTextarea" rows="6" style="height:100%"></textarea><br />
         <label for="floatingTextarea">Vnesi komentar</label>
@@ -45,22 +52,20 @@ include_once 'header.php';
 </form>
 <hr />
 <div class="komentarji">
-    <div class="komentar">
-        <div class="uporabnik">Gorzad Žižek @ 25. 1. 2024 17:45</div>
-        Jaz ga bom kupil, ker si želim ta talefon!
-    </div>
-    <div class="komentar">
-        <div class="uporabnik">Gorzad Žižek @ 25. 1. 2024 17:45</div>
-        Jaz ga bom kupil, ker si želim ta talefon!
-    </div>
-    <div class="komentar">
-        <div class="uporabnik">Gorzad Žižek @ 25. 1. 2024 17:45</div>
-        Jaz ga bom kupil, ker si želim ta talefon!
-    </div>
-    <div class="komentar">
-        <div class="uporabnik">Gorzad Žižek @ 25. 1. 2024 17:45</div>
-        Jaz ga bom kupil, ker si želim ta talefon!
-    </div>
+    <?php
+    $query = "SELECT c.*, u.first_name, u.last_name 
+FROM comments c INNER JOIN users u ON u.id=c.user_id 
+WHERE c.item_id=? ORDER BY date_add DESC";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$id]);
+
+    while ($row=$stmt->fetch()){
+        echo '<div class="komentar">';
+        echo '<div class="uporabnik">'.$row['first_name'].' '.$row['last_name'].' @ '.date('j. n. Y H:i',strtotime($row['date_add'])).'</div>';
+        echo $row['content'];
+        echo '</div>';
+    }
+    ?>
 </div>
 <?php
 include_once 'footer.php';
