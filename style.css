@@ -1,0 +1,25 @@
+.slike .slika{
+    display: inline-block;
+    position: relative;
+}
+
+.slike .delete-icon {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    color: white;
+    padding: 5px;
+    display: none;
+}
+
+.slike .slika:hover .delete-icon {
+    display: block;
+}
+
+.komentar .delete-btn {
+    display: none;
+}
+
+.komentar:hover .delete-btn {
+    display: inline-block;
+}

@@ -11,17 +11,25 @@ if (!$result) {
     die();
 }
 include_once 'header.php';
+$user_id = $_SESSION['user_id'];
 ?>
 <div class="naslov"><strong><?php echo $result['title'];?></strong> (<?php echo $result['category'];?>)</div>
 <h3><?php echo $result['price'];?> €</h3>
 <div class="slike">
     <?php
-    $query = "SELECT * FROM pictures WHERE item_id=?";
+    $query = "SELECT p.*, i.user_id 
+                FROM pictures p INNER JOIN items i ON i.id=p.item_id 
+                WHERE p.item_id=?";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$id]);
 
     while ($row = $stmt->fetch()) {
+        echo '<div class="slika">';
         echo '<img src="'.$row['url'].'" alt="'.$row['description'].'" class="img-thumbnail" />';
+        if ($row['user_id']==$user_id) {
+            echo '<a href="picture_delete.php?id='.$row['id'].'&item_id='.$id.'" onclick="return confirm(\'Prepičan\');" class="delete-icon">X</a>';
+        }
+        echo '</div>';
     }
     ?>
 </div>
@@ -60,9 +68,17 @@ WHERE c.item_id=? ORDER BY date_add DESC";
     $stmt->execute([$id]);
 
     while ($row=$stmt->fetch()){
-        echo '<div class="komentar">';
-        echo '<div class="uporabnik">'.$row['first_name'].' '.$row['last_name'].' @ '.date('j. n. Y H:i',strtotime($row['date_add'])).'</div>';
-        echo $row['content'];
+        echo '<div class="komentar card mb-3">';
+        echo '<div class="card-header">';
+        echo '<div class="badge badge-primary text-dark">'.$row['first_name'].' '.$row['last_name'].' @ '.date('j. n. Y H:i',strtotime($row['date_add'])).'</div>';
+        //preverim ali je trenutno prijavljen user, lastnik komentarja
+        if ($row['user_id'] == $user_id) {
+            echo '<a href="comment_delete.php?id='.$row['id'].'&item_id='.$id.'" onclick="return confirm(\'Prepičan\');" class="btn btn-danger delete-btn">x</a>';
+        }
+        echo '</div>';
+        echo '<div class="card-body">';
+        echo '<div class="card-text">'.$row['content'].'</div>';
+        echo '</div>';
         echo '</div>';
     }
     ?>

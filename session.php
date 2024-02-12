@@ -13,6 +13,11 @@ function isAdmin() {
     }
 }
 
+function msg($msg, $type) {
+    $_SESSION['msg'] = $msg;
+    $_SESSION['type'] = $type;
+}
+
 if (!isset($_SESSION['user_id']) &&
     ($_SERVER['REQUEST_URI'] != '/bolhacom/login.php') &&
     ($_SERVER['REQUEST_URI'] != '/bolhacom/registration.php')) {
