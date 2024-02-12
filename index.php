@@ -35,7 +35,7 @@
                         echo '<div class="btn-group">';
                             echo '<a href="item.php?id='.$row['id'].'" class="btn btn-sm btn-outline-secondary">Poglej</a>';
                             //preveri ali je trenutno prijavljeni uporabnik, lastnik oglasa
-                            if ($_SESSION['user_id'] == $row['user_id']) {
+                            if (($_SESSION['user_id'] == $row['user_id']) || ($_SESSION['admin'])) {
                                 echo '<a href="item_edit.php?id='.$row['id'].'" class="btn btn-sm btn-outline-secondary">Uredi</a>';
                                 echo '<a href="item_delete.php?id='.$row['id'].'" onclick="return confirm(\'Prepričan?\');" class="btn btn-sm btn-outline-secondary">Izbriši</a>';
                             }

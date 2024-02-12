@@ -1,5 +1,6 @@
 <?php
 include_once 'db.php';
+include_once 'session.php';
 
 $email = $_POST['email'];
 $pass = $_POST['pass'];
@@ -13,12 +14,13 @@ if (!empty($email) && !empty($pass)) {
 
     if ($user && password_verify($pass, $user['pass'])) {
         //podatki so pravilni
-        session_start();
+        msg("Uspešna prijava","success");
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['admin'] = $user['admin'];
         header("Location: index.php");
     }
     else {
+        msg("Napaka v podatkih.","danger");
         header("Location: login.php");
     }
 }

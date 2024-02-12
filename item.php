@@ -72,7 +72,7 @@ WHERE c.item_id=? ORDER BY date_add DESC";
         echo '<div class="card-header">';
         echo '<div class="badge badge-primary text-dark">'.$row['first_name'].' '.$row['last_name'].' @ '.date('j. n. Y H:i',strtotime($row['date_add'])).'</div>';
         //preverim ali je trenutno prijavljen user, lastnik komentarja
-        if ($row['user_id'] == $user_id) {
+        if (($row['user_id'] == $user_id) || ($_SESSION['admin'])) {
             echo '<a href="comment_delete.php?id='.$row['id'].'&item_id='.$id.'" onclick="return confirm(\'Prepičan\');" class="btn btn-danger delete-btn">x</a>';
         }
         echo '</div>';
